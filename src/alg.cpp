@@ -23,20 +23,16 @@ double expn(double x, uint16_t count) {
 return res;
 }
 double sinn(double x, uint16_t count) {
-  double sign = 1.0;
   double res = 0.0;
-  for (uint16_t i = 0; i < count; i++) {
-    res += calcItem(x, 2 * i + 1) * sign;
-    sign *= -1.0;
+  for (uint16_t i = 1; i <= count; i++) {
+    res += calcItem(x, 2 * i-1) *  pown(-1, i - 1);
   }
   return res;
 }
 double cosn(double x, uint16_t count) {
-  double sign = 1.0;
-  double res = 0.0;
-  for (uint16_t i = 0; i < count; i++) {
-   res += calcItem(x, 2 * i) * sign;
-    sign *= -1.0;
+  double res = 1.0;
+  for (uint16_t i = 2; i <= count; i++) {
+   res += calcItem(x, 2 * i-2) * pown(-1, i - 1);
   }
   return res;
 }
