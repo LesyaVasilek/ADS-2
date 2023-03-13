@@ -2,12 +2,13 @@
 #include "alg.h"
 
 
-double pown(double value, uint16_t n) {
-    double sum = 1;
-    for (uint16_t i = 0; i < n; ++i) {
-        sum *= value;
+double pown(double value, uint16_t  n) {
+    double pow = value;
+    if (n == 0.0) pow = 1;
+    else {
+        for (uint16_t i = 1; i < n; i++) pow *= value;
     }
-    return sum;
+    return pow;
 }
 
 uint64_t fact(uint16_t n) {
