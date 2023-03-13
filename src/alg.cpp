@@ -2,53 +2,40 @@
 #include "alg.h"
 
 
-double pown(double value, uint16_t  n) {
-    double pow = value;
-    if (n == 0.0) pow = 1;
-    else {
-        for (uint16_t i = 1; i < n; i++) pow *= value;
-    }
-    return pow;
+double pown(double value, uint16_t n) {
+  double q = 1;
+  for (uint16_t i = 1; i <= n; i++)
+    q *= value;
+  return q;
 }
 
 uint64_t fact(uint16_t n) {
-    if (n <= 1)
-        return 1;
-    else
-        return fact(n - 1) * n;
+  uint64_t result = 1;
+  for (uint64_t i = 2; i <= n; i++)
+    result *= i;
+  return result;
 }
-
 double calcItem(double x, uint16_t n) {
-    double num = 1, denom = 1;
-    for (uint16_t i = 1; i <= n; ++i) {
-        num *= x;
-        denom *= i;
-    }
-    return num / denom;
+  return pown(x, n) / fact(n);
 }
 
 double expn(double x, uint16_t count) {
-    double sum = 1, c = 1;
-    for (uint16_t i = 1; i <= count; ++i) {
-        c *= x / i;
-        sum += c;
-    }
-    return sum;
+  double exp = 0;
+  for (uint16_t i = 0; i <= count; i++)
+       exp += calcItem(x, i);
+  return exp;
 }
 
 double sinn(double x, uint16_t count) {
-    double sum = x, c = x;
-    for (uint16_t i = 1; i <= count; ++i) {
-        c *= -1 * x * x / (2 * i) / (2 * i + 1);
-        sum += c;
-    }
-    return sum;
+  double sinus = 0;
+  for (uint16_t i = 1; i <= count; i++)
+      sinus += pown(-1, i - 1) * pown(x, 2 * i - 1) / fact(2 * i - 1);
+  return sinus;
 }
 
 double cosn(double x, uint16_t count) {
-    double cosn = 1.0;
-    for (int i = 2; i <= count; ++i) {
-        cosn += pown(-1, i - 1) * calcItem(x, i * 2 - 2);
-    }
-    return cosn;
+    double cos = 0;
+    for (int i = 1; i <= count; i++)
+        cos += pown(-1, i - 1) * pown(x, 2 * i - 2) / fact(2 * i - 2);
+    return cos;
 }
